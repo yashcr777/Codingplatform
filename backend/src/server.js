@@ -17,6 +17,9 @@ app.get("/health",(req,res)=>{
 app.get("/books",(req,res)=>{
     res.status(200).json({msg:"api is up and running"})
 })
+app.get("/", (req, res) => {
+    res.send("API is running 🚀");
+});
 // if(ENV.NODE_ENV==="production"){
 //     app.use(express.static(path.join(__dirname,"../frontend/dist")))
 
