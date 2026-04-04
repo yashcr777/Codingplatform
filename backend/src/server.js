@@ -17,13 +17,10 @@ app.get("/health",(req,res)=>{
 app.get("/books",(req,res)=>{
     res.status(200).json({msg:"api is up and running"})
 })
-app.get("*",(req,res)=>{
-    res.status(200).json({message:"Yash says hello 1243"})
-})
 if(ENV.NODE_ENV==="production"){
     app.use(express.static(path.join(__dirname,"../frontend/dist")))
 
-    app.get("/{@any",(req,res)=>{
+    app.get("{*any}",(req,res)=>{
         res.sendFile(path.join(__dirname,"../frontend","dist","index.html"));
     });
 }
