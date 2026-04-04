@@ -1,9 +1,42 @@
 import express from 'express'
 import {ENV} from './lib/env.js';
+import {inngest,functions} from "./lib/inngest.js"
+import path from "path"
+import { connectDB } from './lib/db.js';
+import cors from "cors";
+import {serve} from "inngest/express"
 const app=express();
 
-app.get("/health",(req,res)=>{
+app.get("/{*any}",(req,res)=>{
     res.status(200).json({message:"Yash says hello 1243"})
 })
+app.use(express.json());
+app.use(cors({origin:ENV.CLIENT_URL,credentials:true}))
+const __dirname=path.resolve()
+app.use("/api/inngest",serve({client:inngest,functions}))
+app.get("/health",(req,res)=>{
+    res.status(200).json({msg:"api is up and running"})
+})
+app.get("/books",(req,res)=>{
+    res.status(200).json({msg:"api is up and running"})
+})
+if(ENV.NODE_ENV==="production"){
+    app.use(express.static(path.join(__dirname,"../frontend/dist")))
 
-app.listen(ENV.PORT,()=>console.log(`Server is running on port ${ENV.PORT}`))
+    app.get("/{@any",(req,res)=>{
+        res.sendFile(path.join(__dirname,"../frontend","dist","index.html"));
+    });
+}
+const startServer=async()=>{
+    try{
+        await connectDB();
+        app.listen(ENV.PORT,()=>{
+            console.log(`Server is running on port ${ENV.PORT}`)
+        });
+    } catch(error){
+        console.log("Error starting server",error);
+        process.exit(1);
+    }
+}
+
+startServer();
