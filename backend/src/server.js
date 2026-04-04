@@ -8,6 +8,7 @@ import {serve} from "inngest/express"
 import {clerkMiddleware} from '@clerk/express'
 // import { protectRoute } from './middleware/protectRoute.js';
 import chatRoutes from "./routes/chatRoutes.js"
+import sessionRoutes from "./routes/sessionRoutes.js"
 const app=express();
 
 app.use(express.json());
@@ -18,6 +19,7 @@ app.use(clerkMiddleware());
 const __dirname=path.resolve()
 app.use("/api/inngest",serve({client:inngest,functions}))
 app.use("/api/chats",chatRoutes)
+app.use("api/session",sessionRoutes)
 app.get("/health",(req,res)=>{
     res.status(200).json({msg:"api is up and running"})
 })
