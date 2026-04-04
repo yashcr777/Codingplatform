@@ -7,9 +7,6 @@ import cors from "cors";
 import {serve} from "inngest/express"
 const app=express();
 
-app.get("/{*any}",(req,res)=>{
-    res.status(200).json({message:"Yash says hello 1243"})
-})
 app.use(express.json());
 app.use(cors({origin:ENV.CLIENT_URL,credentials:true}))
 const __dirname=path.resolve()
@@ -19,6 +16,9 @@ app.get("/health",(req,res)=>{
 })
 app.get("/books",(req,res)=>{
     res.status(200).json({msg:"api is up and running"})
+})
+app.get("*",(req,res)=>{
+    res.status(200).json({message:"Yash says hello 1243"})
 })
 if(ENV.NODE_ENV==="production"){
     app.use(express.static(path.join(__dirname,"../frontend/dist")))
