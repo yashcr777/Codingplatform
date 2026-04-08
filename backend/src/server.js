@@ -12,7 +12,7 @@ import sessionRoutes from "./routes/sessionRoutes.js"
 const app=express();
 
 app.use(express.json());
-const CLIENT_URL = ENV.CLIENT_URL.replace(/\/$/, "");
+// const CLIENT_URL = ENV.CLIENT_URL.replace(/\/$/, "");
 
 app.use(cors({
   origin: CLIENT_URL,
