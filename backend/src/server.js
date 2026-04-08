@@ -25,7 +25,10 @@ const __dirname=path.resolve()
 app.use("/api/inngest",serve({client:inngest,functions}))
 app.use("/api/chat",chatRoutes)
 app.use("/api/sessions",sessionRoutes)
-app.get("/api",(req,res)=>{
+app.get("/api/health",(req,res)=>{
+    res.status(200).json({msg:"api is up and running"})
+})
+app.get("/",(req,res)=>{
     res.status(200).json({msg:"api is up and running"})
 })
 const startServer=async()=>{
