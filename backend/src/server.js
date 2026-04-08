@@ -15,7 +15,7 @@ app.use(express.json());
 // const CLIENT_URL = ENV.CLIENT_URL.replace(/\/$/, "");
 
 app.use(cors({
-  origin: CLIENT_URL,
+  origin: ENV.CLIENT_URL,
   credentials: true
 }));
 app.use(clerkMiddleware());
