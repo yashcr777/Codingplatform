@@ -6,7 +6,9 @@ export async function createSession(req, res) {
     const { problem, difficulty } = req.body;
     const userId = req.user._id;
     const clerkId = req.user.clerkId;
-
+    if (!req.user) {
+      return res.status(401).json({ message: "Unauthorized - user missing" });
+    }
     if (!problem || !difficulty) {
       return res.status(400).json({ message: "Problem and difficulty are required" });
     }

@@ -15,7 +15,7 @@ app.use(express.json());
 // const CLIENT_URL = ENV.CLIENT_URL.replace(/\/$/, "");
 
 app.use(cors({
-  origin: ENV.CLIENT_URL,
+  origin: "https://codingplatform-kappa.vercel.app",
   credentials: true
 }));
 app.use(clerkMiddleware());
